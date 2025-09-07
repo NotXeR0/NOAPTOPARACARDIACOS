@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¡Hola!</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+      overflow: hidden;
+    }
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: opacity 0.5s ease-in-out;
+    }
+    h1 {
+      color: #333;
+    }
+    input[type="text"] {
+      padding: 10px;
+      margin-top: 10px;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      text-align: center;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #rickroll-container {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      z-index: 1000;
+    }
+    #rickroll-container video {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<div class="main-content" id="main-content">
+  <h1>Hola, pon tu nombre</h1>
+  <input type="text" id="nameInput" placeholder="Tu nombre">
+  <button onclick="saludar()">Enviar</button>
+</div>
+
+<div id="rickroll-container"></div>
+
+<script>
+function saludar() {
+  const nameInput = document.getElementById('nameInput');
+  const mainContent = document.getElementById('main-content');
+  const rickrollContainer = document.getElementById('rickroll-container');
+
+  const name = nameInput.value;
+
+  if (name.trim() !== '') {
+    // Oculta el contenido principal y muestra el video
+    mainContent.style.opacity = '0';
+    setTimeout(() => {
+      mainContent.style.display = 'none';
+
+      // Crea el elemento de video en lugar del iframe
+      const video = document.createElement('video');
+      video.src = "siusplau.mp4"; // Cambia "rickroll.mp4" por el nombre de tu archivo
+      video.autoplay = true;
+      video.controls = false;
+      video.loop = true; // Opcional: para que se repita
+     
+
+      rickrollContainer.appendChild(video);
+      rickrollContainer.style.display = 'block';
+
+      // Pone el contenedor del video en pantalla completa
+      if (rickrollContainer.requestFullscreen) {
+        rickrollContainer.requestFullscreen();
+      } else if (rickrollContainer.mozRequestFullScreen) {
+        rickrollContainer.mozRequestFullScreen();
+      } else if (rickrollContainer.webkitRequestFullscreen) {
+        rickrollContainer.webkitRequestFullscreen();
+      } else if (rickrollContainer.msRequestFullscreen) {
+        rickrollContainer.msRequestFullscreen();
+      }
+
+    }, 500); // Espera a que la animación de opacidad termine
+  }
+}
+</script>
+
+</body>
+</html>
